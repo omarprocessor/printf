@@ -6,7 +6,7 @@ int print_char(va_list args);
 int print_string(va_list args);
 int print_percent(va_list args);
 int print_int(va_list args);
-int print_binary(va_list args);
+/*int print_binary(va_list args);
 int print_octal(va_list args);
 int print_hex(va_list args);
 int print_hexUpper(va_list args);
@@ -15,7 +15,7 @@ int print_special_string(va_list args);
 int print_stringAscii(va_list args);
 int print_r(va_list args);
 int print_p(va_list args);
-
+*/
 typedef int (*print_func)(va_list);
 
 /**
@@ -33,7 +33,7 @@ static print_func func_arr[] = {
 ['%' - 'c'] = print_percent,
 ['d' - 'c'] = print_int,
 ['i' - 'c'] = print_int,
-['b' - 'c'] = print_binary,
+/*['b' - 'c'] = print_binary,
 ['o' - 'c'] = print_octal,
 ['x' - 'c'] = print_hex,
 ['X' - 'c'] = print_hexUpper,
@@ -42,8 +42,8 @@ static print_func func_arr[] = {
 ['a' - 'c'] = print_stringAscii,
 ['r' - 'c'] = print_r,
 ['p' - 'c'] = print_p
+*/
 };
-
 int count = 0;
 int index = format - 'c';
 int len = (sizeof(func_arr) / sizeof(func_arr[0]);
