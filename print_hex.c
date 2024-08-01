@@ -8,33 +8,25 @@
  *
  * Return: Number of characters printed.
  */
-int print_number_hex(unsigned long n)
+
+int print_number_hex(unsigned int num)
 {
+int count = 0;
 char hex_digits[] = "0123456789abcdef";
-char buffer[16];
-int len = 0;
-int i;
-
-if (n == 0)
+if (num == 0)
 {
-buffer[len++] = '0';
+_putchar('0');
+return 1;
 }
-else
+if (num >= 16)
 {
-while (n > 0)
-{
-buffer[len++] = hex_digits[n % 16];
-n /= 16;
+count += print_number_hex(num / 16);
 }
+_putchar(hex_digits[num % 16]);
+count++;
+return count;
 }
 
-for (i = len - 1; i >= 0; i--)
-{
-write(1, &buffer[i], 1);
-}
-
-return (len);
-}
 
 /**
  * print_hex - Prints an unsigned integer in hexadecimal format from va_list.
