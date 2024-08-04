@@ -2,92 +2,76 @@
 #include <unistd.h>
 #include <stdarg.h>
 
-/**
- * print_char - Writes a single character to standard output.
- * @c: The character to be written.
- * @count: Pointer to the count of printed characters.
- */
-void print_char(char c, int *count)
-{
-write(1, &c, 1);
-(*count)++;
-}
+/* Prototype for helper function to print integers */
+int print_number(int n);
 
 /**
- * print_string - Writes a string to standard output.
- * @s: The string to be written.
- * @count: Pointer to the count of printed characters.
- * If the string is NULL, "(null)" is printed.
- */
-void print_string(char *s, int *count)
-{
-if (s == NULL)
-s = "(null)";
-while (*s)
-{
-write(1, s, 1);
-s++;
-(*count)++;
-}
-}
-
-/**
- * handle_format - Handles format specifiers in the format string.
- * @specifier: The format specifier to handle.
- * @args: The list of arguments.
- * @count: Pointer to the count of printed characters.
- */
-void handle_format(char specifier, va_list args, int *count)
-{
-char c;
-char *s;
-if (specifier == 'c')
-{
-c = va_arg(args, int);
-print_char(c, count);
-}
-else if (specifier == 's')
-{
-s = va_arg(args, char *);
-print_string(s, count);
-}
-else if (specifier == '%')
-{
-print_char('%', count);
-}
-else
-{
-print_char('%', count);
-print_char(specifier, count);
-}
-}
-
-/**
- * _printf - Produces output according to a format.
- * @format: The format string.
- * @...: The values to format and print.
- * Return: The number of characters printed, or -1 on failure.
+ * _printf - Custom printf function to handle %d and %i
+ * @format: Format string with conversion specifiers
+ * @...: Variables to format
+ * Return: Number of characters printed
  */
 int _printf(const char *format, ...)
 {
 va_list args;
-int i = 0, count = 0;
-if (format == NULL)
-return (-1);
+int count = 0;
+const char *p;
+
 va_start(args, format);
-while (format[i])
+
+for (p = format; *p; p++)
 {
-if (format[i] == '%')
+if (*p == '%' && (*(p + 1) == 'd' || *(p + 1) == 'i'))
 {
-i++;
-handle_format(format[i], args, &count);
+int num = va_arg(args, int);
+count += print_number(num);
+p++;
 }
 else
 {
-print_char(format[i], &count);
+write(1, p, 1);
+count++;
 }
-i++;
 }
+
 va_end(args);
+return (count);
+}
+
+/**
+ * print_number - Prints an integer to stdout
+ * @n: The integer to print
+ * Return: Number of characters printed
+ */
+int print_number(int n)
+{
+int count = 0;
+char buffer[12];
+char *ptr = buffer + sizeof(buffer) - 1;
+
+*ptr = '\0';
+
+if (n == 0)
+{
+write(1, "0", 1);
+return (1);
+}
+
+if (n < 0)
+{
+write(1, "-", 1);
+n = -n;
+count++;
+}
+
+while (n > 0)
+{
+*--ptr = (n % 10) + '0';
+n /= 10;
+}
+
+write(1, ptr, buffer + sizeof(buffer) - ptr);
+count += buffer + sizeof(buffer) - ptr;
+
 return (count);
 }
