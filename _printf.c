@@ -1,7 +1,6 @@
 #include "main.h"
 #include <stdarg.h>
 #include <unistd.h>
-#include <stddef.h>
 
 /**
 * _printf - Custom implementation of printf that handles various format
@@ -34,42 +33,5 @@ count++;
 }
 
 va_end(args);
-return (count);
-}
-
-/**
- * handle_specifier - Handles a format specifier
- * @specifier: The format specifier character
- * @args: The argument list
- *
- * Return: The number of characters printed
- */
-
-int handle_specifier(char specifier, va_list args)
-
-{
-int count = 0;
-
-switch (specifier)
-{
-case 'c':
-count = print_char(va_arg(args, int));
-break;
-case 's':
-count = print_string(va_arg(args, char *));
-break;
-case 'p':
-count = print_pointer(va_arg(args, void *));
-break;
-case '%':
-_putchar('%');
-count = 1;
-break;
-default:
-_putchar('%');
-_putchar(specifier);
-count = 2;
-break;
-}
 return (count);
 }
