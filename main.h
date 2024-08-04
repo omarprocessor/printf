@@ -35,7 +35,6 @@ int handle_format_r(va_list args);
 int handle_format_p(va_list args);
 int _putchar(char c);
 int print_percent(va_list args);
-/*int print_number_hex(unsigned int num);*/
-int print_number_hex(unsigned int n);
+int print_number_hex(unsigned long num);
 #endif 
 

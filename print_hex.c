@@ -9,10 +9,10 @@
  * Return: Number of characters printed.
  */
 
-int print_number_hex(unsigned int num)
+int print_number_hex(unsigned long num)
 {
-int count = 0;
 char hex_digits[] = "0123456789abcdef";
+int count = 0;
 if (num == 0)
 {
 _putchar('0');
@@ -24,9 +24,8 @@ count += print_number_hex(num / 16);
 }
 _putchar(hex_digits[num % 16]);
 count++;
-return count;
+return (count);
 }
-
 
 /**
  * print_hex - Prints an unsigned integer in hexadecimal format from va_list.
@@ -36,5 +35,5 @@ return count;
  */
 int print_hex(va_list args)
 {
-return (print_number_hex(va_arg(args, unsigned int)));
+return (print_number_hex(va_arg(args, unsigned long)));
 }
