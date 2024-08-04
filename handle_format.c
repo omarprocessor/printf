@@ -39,6 +39,8 @@ case 'r':
 return (handle_format_r(args));
 case 'p':
 return (handle_format_p(args));
+case 'R':
+return (handle_format_R(args));
 default:
 write(1, &specifier, 1);
 return (1);
