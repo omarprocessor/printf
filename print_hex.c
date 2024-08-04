@@ -4,7 +4,7 @@
 
 /**
  * print_number_hex - Prints an unsigned long integer in hexadecimal format.
- * @n: The unsigned long integer to print.
+ * @num: The unsigned long integer to print.
  *
  * Return: Number of characters printed.
  */
@@ -16,7 +16,7 @@ int count = 0;
 if (num == 0)
 {
 _putchar('0');
-return 1;
+return (1);
 }
 if (num >= 16)
 {

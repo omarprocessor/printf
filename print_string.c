@@ -13,11 +13,13 @@ int print_string(va_list args)
 char *str = va_arg(args, char *);
 int len = 0;
 
-while (str && *str)
+if (str == NULL)
+str = "(null)"; /* Handle NULL string */
+
+while (*str)
 {
 len += write(1, str++, 1);
 }
 
 return (len);
 }
-
