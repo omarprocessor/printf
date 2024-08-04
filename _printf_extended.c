@@ -13,7 +13,43 @@ return (write(1, &c, 1));
 }
 
 /**
- * _printf - Custom printf function
+ * print_number - Prints an integer as a string
+ * @n: The integer to print
+ * Return: The number of characters printed
+ */
+int print_number(int n)
+{
+char buffer[10];
+int i = 0, count = 0, sign = 0;
+
+if (n < 0)
+{
+sign = 1;
+n = -n;
+}
+
+do {
+buffer[i++] = (n % 10) + '0';
+n /= 10;
+} while (n > 0);
+
+if (sign)
+{
+_putchar('-');
+count++;
+}
+
+while (i > 0)
+{
+_putchar(buffer[--i]);
+count++;
+}
+
+return (count);
+}
+
+/**
+ * _printf - Custom printf function with extended specifiers
  * @format: The format string
  * @...: The values to format
  * Return: The number of characters printed
@@ -28,28 +64,10 @@ va_start(args, format);
 
 for (ptr = format; *ptr != '\0'; ptr++)
 {
-if (*ptr == '%' && (*(ptr + 1) == 'c' || *(ptr + 1) == 's' || *(ptr + 1) == '%'))
+if (*ptr == '%' && (*(ptr + 1) == 'd' || *(ptr + 1) == 'i'))
 {
 ptr++;
-if (*ptr == 'c')
-{
-_putchar(va_arg(args, int));
-count++;
-}
-else if (*ptr == 's')
-{
-char *str = va_arg(args, char *);
-while (*str)
-{
-_putchar(*str++);
-count++;
-}
-}
-else if (*ptr == '%')
-{
-_putchar('%');
-count++;
-}
+count += print_number(va_arg(args, int));
 }
 else
 {
