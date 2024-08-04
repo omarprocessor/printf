@@ -3,61 +3,36 @@
 #include <unistd.h>
 
 /**
- * _putchar - Writes a character to stdout
- * @c: The character to be written
- * Return: 1 on success, -1 on error
- */
-int _putchar(char c)
-{
-return (write(1, &c, 1));
-}
-
-/**
- * _printf - Custom printf function
- * @format: The format string
- * @...: The values to format
- * Return: The number of characters printed
- */
+* _printf - Custom implementation of printf that handles various format
+*           specifiers and prints the corresponding arguments.
+* @format: Format string that specifies how to format the output.
+* @...: Variadic arguments to be formatted and printed.
+*
+* Return: Number of characters printed.
+*/
 int _printf(const char *format, ...)
 {
 va_list args;
 int count = 0;
-const char *ptr;
 
 va_start(args, format);
 
-for (ptr = format; *ptr != '\0'; ptr++)
+while (*format)
 {
-if (*ptr == '%' && (*(ptr + 1) == 'c' || *(ptr + 1) == 's' || *(ptr + 1) == '%'))
+if (*format == '%')
 {
-ptr++;
-if (*ptr == 'c')
-{
-_putchar(va_arg(args, int));
-count++;
-}
-else if (*ptr == 's')
-{
-char *str = va_arg(args, char *);
-while (*str)
-{
-_putchar(*str++);
-count++;
-}
-}
-else if (*ptr == '%')
-{
-_putchar('%');
-count++;
-}
+format++;
+count += handle_format(*format, args);
 }
 else
 {
-_putchar(*ptr);
+write(1, format, 1);
 count++;
 }
+format++;
 }
 
 va_end(args);
 return (count);
 }
+
