@@ -2,9 +2,10 @@
 #define MAIN_H
 
 #include <stdarg.h>
-#include <unistd.h>
-int print_char(va_list args);
-int print_string(va_list args);
+#include <stddef.h>
+int print_char(char c);
+int print_string(char *str);
+int print_pointer(void *ptr);
 int print_percent(va_list args);
 int print_int(va_list args);
 int print_number(int n);
@@ -19,6 +20,7 @@ int print_r(va_list args);
 int print_p(va_list args);
 int print_number_unsignedint(unsigned int n);
 int _printf(const char *format, ...);
+int handle_specifier(char specifier, va_list args);
 int handle_format(char format, va_list args);
 int handle_format_char(va_list args);
 int handle_format_string(va_list args);
@@ -37,5 +39,5 @@ int _putchar(char c);
 int print_percent(va_list args);
 /*int print_number_hex(unsigned int num);*/
 int print_number_hex(unsigned int n);
-#endif 
+#endif
 
